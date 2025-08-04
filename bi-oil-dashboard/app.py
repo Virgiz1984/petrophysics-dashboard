@@ -8,7 +8,7 @@ st.title("BI-дашборд для анализа скважин")
 uploaded_file = st.file_uploader("Загрузите CSV файл с данными", type=["csv"])
 if uploaded_file:
     df = pd.read_csv(uploaded_file, parse_dates=['date'])  # Предполагаем, что есть колонка 'date'
-    
+    st.write("Колонки в загруженном файле:", df.columns.tolist()) 
     # Фильтр по дате
     min_date = df['date'].min()
     max_date = df['date'].max()
