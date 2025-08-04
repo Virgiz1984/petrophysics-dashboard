@@ -12,10 +12,14 @@ if uploaded_file:
     df = pd.read_csv(uploaded_file, parse_dates=['date'])  # Предполагаем, что есть колонка 'date'
     st.write("Колонки в загруженном файле:", df.columns.tolist()) 
     # Фильтр по дате
-    min_date = df['date'].min()
-    max_date = df['date'].max()
-    date_range = st.slider("Выберите период", min_value=min_date, max_value=max_date,
-                           value=(min_date, max_date))
+    min_date = df['date'].min().to_pydatetime().date()
+    max_date = df['date'].max().to_pydatetime().date()
+    date_range = st.slider(
+        "Выберите период",
+        min_value=min_date,
+        max_value=max_date,
+        value=(min_date, max_date)
+    )
     df_filtered = df[(df['date'] >= date_range[0]) & (df['date'] <= date_range[1])]
     
     # Фильтр по скважинам
